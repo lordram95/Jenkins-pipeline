@@ -16,21 +16,26 @@ pipeline {
             steps {
                 script {
                     echo 'Running Unit and Integration Tests...'
-                    echo 'Tools: JUnit, TestNG'  
+                    echo 'Tools: JUnit, TestNG'
                 }
             }
             post {
                 success {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Unit and Integration Tests status",
-                    body: "The Unit and Integration Tests stage has completed successfully!"
+                    emailext (
+                        to: "rameshkavinda95@gmail.com",
+                        subject: "Unit and Integration Tests Status - Success",
+                        body: "The Unit and Integration Tests stage has completed successfully!",
+                        attachmentsPattern: '**/build.log'
+                    )
                 }
                 failure {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Unit and Integration Tests status",
-                    body: "The Unit and Integration Tests stage has failed!"
+                    emailext (
+                        to: "rameshkavinda95@gmail.com",
+                        subject: "Unit and Integration Tests Status - Failure",
+                        body: "The Unit and Integration Tests stage has failed!",
+                        attachmentsPattern: '**/build.log'
+                    )
                 }
-                
             }
         }
 
@@ -52,14 +57,20 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Security Scan status",
-                    body: "The Security Scan stage has completed successfully!"
+                    emailext (
+                        to: "rameshkavinda95@gmail.com",
+                        subject: "Security Scan Status - Success",
+                        body: "The Security Scan stage has completed successfully!",
+                        attachmentsPattern: '**/security_scan.log'
+                    )
                 }
                 failure {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Security Scan status",
-                    body: "The Security Scan stage has failed!"
+                    emailext (
+                        to: "rameshkavinda95@gmail.com",
+                        subject: "Security Scan Status - Failure",
+                        body: "The Security Scan stage has failed!",
+                        attachmentsPattern: '**/security_scan.log'
+                    )
                 }
             }
         }
