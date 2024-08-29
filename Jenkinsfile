@@ -34,7 +34,7 @@ pipeline {
                             emailext(
                                 subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
                                 body: "The Unit and Integration Tests stage has completed with status: ${currentBuild.currentResult}.",
-                                to: 's223987441@deakin.edu.au',
+                                to: 'rameshkavinda95@gmail.com',
                                 attachmentsPattern: 'test-results.log'
                             )
                         } else {
@@ -69,7 +69,7 @@ pipeline {
                             emailext(
                                 subject: "Security Scan Completed: ${currentBuild.currentResult}",
                                 body: "The Security Scan stage has completed with status: ${currentBuild.currentResult}.",
-                                to: 's223987441@deakin.edu.au',
+                                to: 'rameshkavinda95@gmail.com',
                                 attachmentsPattern: 'security-scan.log'
                             )
                         } else {
