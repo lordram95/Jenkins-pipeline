@@ -53,6 +53,7 @@ pipeline {
                 script {
                     echo 'Performing Security Scan...'
                     echo 'Tool: OWASP Dependency-Check'
+                    archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true 
                 }
             }
             post {
@@ -60,14 +61,16 @@ pipeline {
                     emailext (
                         to: "rameshkavinda95@gmail.com",
                         subject: "Security Scan status - Success",
-                        body: "The Security Scan stage has completed successfully!"
+                        body: "The Security Scan stage has completed successfully!",
+                        attachmentsPattern: 'build.log'
                     )
                 }
                 failure {
                     emailext (
                         to: "rameshkavinda95@gmail.com",
                         subject: "Security Scan status - Failure",
-                        body: "The Security Scan stage has failed!"
+                        body: "The Security Scan stage has failed!",
+                        attachmentsPattern: 'build.log'
                     )
                 }
             }
