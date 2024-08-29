@@ -19,17 +19,14 @@ pipeline {
                 }
             }
             post {
-                success {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Unit and Integration Tests status",
-                    body: "The Unit and Integration Tests stage has completed successfully!"
+                always {
+                    emailext(
+                        to: 'rameshkavinda95@gmail.com',
+                        subject: 'Unit and Integration Tests status',
+                        body: """The Unit and Integration Tests stage has completed. Status: ${currentBuild.result}""",
+                        attachLog: true
+                    )
                 }
-                failure {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Unit and Integration Tests status",
-                    body: "The Unit and Integration Tests stage has failed!"
-                }
-                
             }
         }
 
@@ -50,15 +47,13 @@ pipeline {
                 }
             }
             post {
-                success {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Security Scan status",
-                    body: "The Security Scan stage has completed successfully!"
-                }
-                failure {
-                    mail to: "rameshkavinda95@gmail.com",
-                    subject: "Security Scan status",
-                    body: "The Security Scan stage has failed!"
+                always {
+                    emailext(
+                        to: 'rameshkavinda95@gmail.com',
+                        subject: 'Security Scan status',
+                        body: """The Security Scan stage has completed. Status: ${currentBuild.result}""",
+                        attachLog: true
+                    )
                 }
             }
         }
