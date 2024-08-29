@@ -2,14 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Wait for a moment') {
-            steps {
-                script {
-                    sleep(time: 30, unit: 'SECONDS') // Delays the pipeline by 30 seconds
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 script {
