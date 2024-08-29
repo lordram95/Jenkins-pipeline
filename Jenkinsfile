@@ -24,7 +24,7 @@ pipeline {
                         to: 'rameshkavinda95@gmail.com',
                         subject: 'Unit and Integration Tests status',
                         body: """The Unit and Integration Tests stage has completed. Status: ${currentBuild.result}""",
-                        attachmentsPattern: '/Users/lordram/Desktop/Repo Link.pdf'
+                        attachmentsPattern: '**/path/to/Repo Link.pdf'
                     )
                 }
             }
