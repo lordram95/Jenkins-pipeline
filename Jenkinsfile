@@ -28,9 +28,12 @@ pipeline {
             }
             post {
                 always {
-                    mail to: 's223987441@deakin.edu.au',
-                         subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
-                         body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
+                    script {
+                        def testLog = currentBuild.rawBuild.getLog(100).join("\n")
+                        mail to: 's223987441@deakin.edu.au',
+                             subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
+                             body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
+                    }
                 }
             }
         }
@@ -53,9 +56,12 @@ pipeline {
             }
             post {
                 always {
-                    mail to: 's223987441@deakin.edu.au',
-                         subject: "Security Scan Completed: ${currentBuild.currentResult}",
-                         body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
+                    script {
+                        def securityLog = currentBuild.rawBuild.getLog(100).join("\n")
+                        mail to: 's223987441@deakin.edu.au',
+                             subject: "Security Scan Completed: ${currentBuild.currentResult}",
+                             body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
+                    }
                 }
             }
         }
