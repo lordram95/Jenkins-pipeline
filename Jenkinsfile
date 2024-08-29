@@ -23,25 +23,21 @@ pipeline {
             steps {
                 script {
                     echo 'Running Unit and Integration Tests...'
-                    echo 'Tools: JUnit, TestNG'
-                    writeFile file: 'test-results.log', text: 'Test results log content...'   
+                    echo 'Tools: JUnit, TestNG'  
                 }
             }
             post {
-                always {
-                    script {
-                        if (fileExists('test-results.log')) {
-                            emailext(
-                                subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
-                                body: "The Unit and Integration Tests stage has completed with status: ${currentBuild.currentResult}.",
-                                to: 'rameshkavinda95@gmail.com',
-                                attachmentsPattern: 'test-results.log'
-                            )
-                        } else {
-                            echo 'Test log file not found.'
-                        }
-                    }
+                success {
+                    mail to: "rameshkavinda95@gmail.com",
+                    subject: "Unit and Integration Tests status",
+                    body: "The Unit and Integration Tests stage has completed successfully!"
                 }
+                failure {
+                    mail to: "rameshkavinda95@gmail.com",
+                    subject: "Unit and Integration Tests status",
+                    body: "The Unit and Integration Tests stage has failed!"
+                }
+                
             }
         }
 
@@ -59,23 +55,18 @@ pipeline {
                 script {
                     echo 'Performing Security Scan...'
                     echo 'Tool: OWASP Dependency-Check'
-                    writeFile file: 'security-scan.log', text: 'Security scan log content...'
                 }
             }
             post {
-                always {
-                    script {
-                        if (fileExists('security-scan.log')) {
-                            emailext(
-                                subject: "Security Scan Completed: ${currentBuild.currentResult}",
-                                body: "The Security Scan stage has completed with status: ${currentBuild.currentResult}.",
-                                to: 'rameshkavinda95@gmail.com',
-                                attachmentsPattern: 'security-scan.log'
-                            )
-                        } else {
-                            echo 'Security scan log file not found.'
-                        }
-                    }
+                success {
+                    mail to: "rameshkavinda95@gmail.com",
+                    subject: "Security Scan status",
+                    body: "The Security Scan stage has completed successfully!"
+                }
+                failure {
+                    mail to: "rameshkavinda95@gmail.com",
+                    subject: "Security Scan status",
+                    body: "The Security Scan stage has failed!"
                 }
             }
         }
@@ -105,15 +96,6 @@ pipeline {
                     echo 'Server: AWS EC2 Instance'
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed.'
         }
     }
 }
