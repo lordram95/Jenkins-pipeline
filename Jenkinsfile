@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DIRECTORY_PATH = '/Users/lordram/Library/CloudStorage/OneDrive-DeakinUniversity/Master of IT/SIT753 - Professional Practice in Information Technology/Tasks/5.1P'  // actual path
+        DIRECTORY_PATH = '/Users/lordram/Jenkins-pipeline'  // actual path
         TESTING_ENVIRONMENT = 'staging'
         PRODUCTION_ENVIRONMENT = 'Ramesh-Prod'  // Using muy name as the production environment
     }
