@@ -2,12 +2,15 @@ pipeline {
     agent any
 
     environment {
-        DIRECTORY_PATH = '/Users/lordram/Jenkins-pipeline'  // actual path
+        DIRECTORY_PATH = '/Users/lordram/Library/CloudStorage/OneDrive-DeakinUniversity/Master of IT/SIT753 - Professional Practice in Information Technology/Tasks/5.1P'  // actual path
         TESTING_ENVIRONMENT = 'staging'
         PRODUCTION_ENVIRONMENT = 'Ramesh-Prod'  // Using muy name as the production environment
     }
 
+
+
     stages {
+
         stage('Wait for a moment') {
             steps {
                 script {
@@ -15,8 +18,6 @@ pipeline {
                 }
             }
         }
-
-    stages {
         stage('Build') {
             steps {
                 echo "Fetch the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
