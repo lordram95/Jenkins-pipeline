@@ -28,10 +28,9 @@ pipeline {
             }
             post {
                 always {
-                    mail to: 'test@example.com',
+                    mail to: 's223987441@deakin.edu.au',
                          subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
-                         body: "The tests have completed with status: ${currentBuild.currentResult}. Please find the logs attached.",
-                         attachLog: true
+                         body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
                 }
             }
         }
@@ -56,8 +55,7 @@ pipeline {
                 always {
                     mail to: 's223987441@deakin.edu.au',
                          subject: "Security Scan Completed: ${currentBuild.currentResult}",
-                         body: "The security scan has completed with status: ${currentBuild.currentResult}. Please find the logs attached.",
-                         attachLog: true
+                         body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
                 }
             }
         }
