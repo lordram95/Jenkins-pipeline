@@ -23,20 +23,26 @@ pipeline {
             steps {
                 script {
                     echo 'Running Unit and Integration Tests...'
-                    echo 'Tools: JUnit, TestNG'   
+                    echo 'Tools: JUnit, TestNG'
+                    writeFile file: 'test-results.log', text: 'Test results log content...'   
                 }
             }
-            //post {
-            //    always {
-            //        script {
-            //            archiveArtifacts artifacts: '**/test-results.log', allowEmptyArchive: true
-            //            def testLog = readFile('**/test-results.log')
-            //            mail to: 's223987441@deakin.edu.au',
-            //                 subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
-            //                 body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
-            //        }
-            //    }
-            //}
+            post {
+                always {
+                    script {
+                        if (fileExists('test-results.log')) {
+                            emailext(
+                                subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
+                                body: "The Unit and Integration Tests stage has completed with status: ${currentBuild.currentResult}.",
+                                to: 's223987441@deakin.edu.au',
+                                attachmentsPattern: 'test-results.log'
+                            )
+                        } else {
+                            echo 'Test log file not found.'
+                        }
+                    }
+                }
+            }
         }
 
         stage('Code Analysis') {
@@ -53,19 +59,25 @@ pipeline {
                 script {
                     echo 'Performing Security Scan...'
                     echo 'Tool: OWASP Dependency-Check'
+                    writeFile file: 'security-scan.log', text: 'Security scan log content...'
                 }
             }
-            //post {
-            //    always {
-            //        script {
-            //            archiveArtifacts artifacts: '**/security-scan.log', allowEmptyArchive: true
-            //            def securityLog = readFile('**/security-scan.log')
-            //            mail to: 's223987441@deakin.edu.au',
-            //                 subject: "Security Scan Completed: ${currentBuild.currentResult}",
-            //                body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
-            //        }
-            //    }
-            //}
+            post {
+                always {
+                    script {
+                        if (fileExists('security-scan.log')) {
+                            emailext(
+                                subject: "Security Scan Completed: ${currentBuild.currentResult}",
+                                body: "The Security Scan stage has completed with status: ${currentBuild.currentResult}.",
+                                to: 's223987441@deakin.edu.au',
+                                attachmentsPattern: 'security-scan.log'
+                            )
+                        } else {
+                            echo 'Security scan log file not found.'
+                        }
+                    }
+                }
+            }
         }
 
         stage('Deploy to Staging') {
