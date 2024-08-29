@@ -29,7 +29,8 @@ pipeline {
             post {
                 always {
                     script {
-                        def testLog = currentBuild.rawBuild.getLog(100).join("\n")
+                        archiveArtifacts artifacts: '**/test-results.log', allowEmptyArchive: true
+                        def testLog = readFile('**/test-results.log')
                         mail to: 's223987441@deakin.edu.au',
                              subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
                              body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
@@ -57,7 +58,8 @@ pipeline {
             post {
                 always {
                     script {
-                        def securityLog = currentBuild.rawBuild.getLog(100).join("\n")
+                        archiveArtifacts artifacts: '**/security-scan.log', allowEmptyArchive: true
+                        def securityLog = readFile('**/security-scan.log')
                         mail to: 's223987441@deakin.edu.au',
                              subject: "Security Scan Completed: ${currentBuild.currentResult}",
                              body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
