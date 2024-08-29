@@ -24,7 +24,7 @@ pipeline {
                         to: 'rameshkavinda95@gmail.com',
                         subject: 'Unit and Integration Tests status',
                         body: """The Unit and Integration Tests stage has completed. Status: ${currentBuild.result}""",
-                        attachLog: true
+                        attachmentsPattern: '/Users/lordram/Library/CloudStorage/OneDrive-DeakinUniversity/Master of IT/SIT753 - Professional Practice in Information Technology/Tasks/6.1C/Repo Link.pdf'
                     )
                 }
             }
