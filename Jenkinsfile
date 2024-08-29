@@ -26,17 +26,17 @@ pipeline {
                     echo 'Tools: JUnit, TestNG'   
                 }
             }
-            post {
-                always {
-                    script {
-                        archiveArtifacts artifacts: '**/test-results.log', allowEmptyArchive: true
-                        def testLog = readFile('**/test-results.log')
-                        mail to: 's223987441@deakin.edu.au',
-                             subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
-                             body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
-                    }
-                }
-            }
+            //post {
+            //    always {
+            //        script {
+            //            archiveArtifacts artifacts: '**/test-results.log', allowEmptyArchive: true
+            //            def testLog = readFile('**/test-results.log')
+            //            mail to: 's223987441@deakin.edu.au',
+            //                 subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
+            //                 body: "The tests have completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${testLog}"
+            //        }
+            //    }
+            //}
         }
 
         stage('Code Analysis') {
@@ -55,17 +55,17 @@ pipeline {
                     echo 'Tool: OWASP Dependency-Check'
                 }
             }
-            post {
-                always {
-                    script {
-                        archiveArtifacts artifacts: '**/security-scan.log', allowEmptyArchive: true
-                        def securityLog = readFile('**/security-scan.log')
-                        mail to: 's223987441@deakin.edu.au',
-                             subject: "Security Scan Completed: ${currentBuild.currentResult}",
-                             body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
-                    }
-                }
-            }
+            //post {
+            //    always {
+            //        script {
+            //            archiveArtifacts artifacts: '**/security-scan.log', allowEmptyArchive: true
+            //            def securityLog = readFile('**/security-scan.log')
+            //            mail to: 's223987441@deakin.edu.au',
+            //                 subject: "Security Scan Completed: ${currentBuild.currentResult}",
+            //                body: "The security scan has completed with status: ${currentBuild.currentResult}.\n\nLogs:\n${securityLog}"
+            //        }
+            //    }
+            //}
         }
 
         stage('Deploy to Staging') {
