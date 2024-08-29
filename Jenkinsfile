@@ -1,16 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        DIRECTORY_PATH = '/Users/lordram/Library/CloudStorage/OneDrive-DeakinUniversity/Master of IT/SIT753 - Professional Practice in Information Technology/Tasks/5.1P'  // actual path
-        TESTING_ENVIRONMENT = 'staging'
-        PRODUCTION_ENVIRONMENT = 'Ramesh-Prod'  // Using muy name as the production environment
-    }
-
-
-
     stages {
-
         stage('Wait for a moment') {
             steps {
                 script {
@@ -18,43 +9,93 @@ pipeline {
                 }
             }
         }
+
         stage('Build') {
             steps {
-                echo "Fetch the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
-                echo "Compile the code and generate any necessary artifacts."
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                echo 'Unit tests'
-                echo 'Integration tests'
+                script {
+                    echo 'Building the project...'
+                    echo 'Tool: Maven'
+                }
             }
         }
 
-        stage('Code Quality Check') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo 'Check the quality of the code.'
+                script {
+                    echo 'Running Unit and Integration Tests...'
+                    echo 'Tools: JUnit, TestNG'   
+                }
+            }
+            post {
+                always {
+                    mail to: 'test@example.com',
+                         subject: "Unit and Integration Tests Completed: ${currentBuild.currentResult}",
+                         body: "The tests have completed with status: ${currentBuild.currentResult}. Please find the logs attached.",
+                         attachLog: true
+                }
             }
         }
 
-        stage('Deploy') {
+        stage('Code Analysis') {
             steps {
-                echo "Deploy the application to the testing environment specified by the environment variable: ${env.TESTING_ENVIRONMENT}"
+                script {
+                    echo 'Performing Code Analysis...'
+                    echo 'Tool: SonarQube'
+                }
             }
         }
 
-        stage('Approval') {
+        stage('Security Scan') {
             steps {
-                echo 'Waiting for manual approval...'
-                sleep time: 10, unit: 'SECONDS'
+                script {
+                    echo 'Performing Security Scan...'
+                    echo 'Tool: OWASP Dependency-Check'
+                }
+            }
+            post {
+                always {
+                    mail to: 's223987441@deakin.edu.au',
+                         subject: "Security Scan Completed: ${currentBuild.currentResult}",
+                         body: "The security scan has completed with status: ${currentBuild.currentResult}. Please find the logs attached.",
+                         attachLog: true
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                script {
+                    echo 'Deploying to Staging...'
+                    echo 'Server: AWS EC2 Instance'
+                }
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                script {
+                    echo 'Running Integration Tests on Staging...'
+                    echo 'Tools: JUnit, Selenium'
+                }
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the production environment: ${env.PRODUCTION_ENVIRONMENT}"
+                script {
+                    echo 'Deploying to Production...'
+                    echo 'Server: AWS EC2 Instance'
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
