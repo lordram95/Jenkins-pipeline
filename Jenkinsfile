@@ -17,7 +17,7 @@ pipeline {
                 script {
                     echo 'Running Unit and Integration Tests...'
                     echo 'Tools: JUnit, TestNG'
-                    archiveArtifacts artifacts: '**/build.log', allowEmptyArchive: true  
+                    archiveArtifacts artifacts: '/Users/lordram/Desktop/build.log', allowEmptyArchive: true  
                 }
             }
             post {
@@ -25,13 +25,13 @@ pipeline {
                     mail to: "rameshkavinda95@gmail.com",
                     subject: "Unit and Integration Tests status",
                     body: "The Unit and Integration Tests stage has completed successfully!"
-                    attachmentsPattern: '**/build.log'
+                    attachmentsPattern: '/Users/lordram/Desktop/build.log'
                 }
                 failure {
                     mail to: "rameshkavinda95@gmail.com",
                     subject: "Unit and Integration Tests status",
                     body: "The Unit and Integration Tests stage has failed!"
-                    attachmentsPattern: '**/build.log'
+                    attachmentsPattern: '/Users/lordram/Desktop/build.log'
                 }
                 
             }
