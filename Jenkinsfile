@@ -26,7 +26,7 @@ pipeline {
                         subject: "Unit and Integration Tests Status - Success",
                         body: "The Unit and Integration Tests stage has completed successfully!",
                         attachLog: true
-                        //attachmentsPattern: '**/build.log'
+
                     )
                 }
                 failure {
@@ -35,7 +35,7 @@ pipeline {
                         subject: "Unit and Integration Tests Status - Failure",
                         body: "The Unit and Integration Tests stage has failed!",
                         attachLog: true
-                        //attachmentsPattern: '**/build.log'
+
                     )
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
                         subject: "Security Scan Status - Success",
                         body: "The Security Scan stage has completed successfully!",
                         attachLog: true
-                        //attachmentsPattern: '**/security_scan.log'
+
                     )
                 }
                 failure {
@@ -73,7 +73,7 @@ pipeline {
                         subject: "Security Scan Status - Failure",
                         body: "The Security Scan stage has failed!",
                         attachLog: true
-                        //attachmentsPattern: '**/security_scan.log'
+
                     )
                 }
             }
