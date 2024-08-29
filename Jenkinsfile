@@ -25,7 +25,7 @@ pipeline {
                         to: "rameshkavinda95@gmail.com",
                         subject: "Unit and Integration Tests Status - Success",
                         body: "The Unit and Integration Tests stage has completed successfully!",
-                        attachmentsPattern: '**/build.log'
+                        //attachmentsPattern: '**/build.log'
                     )
                 }
                 failure {
@@ -33,7 +33,7 @@ pipeline {
                         to: "rameshkavinda95@gmail.com",
                         subject: "Unit and Integration Tests Status - Failure",
                         body: "The Unit and Integration Tests stage has failed!",
-                        attachmentsPattern: '**/build.log'
+                        //attachmentsPattern: '**/build.log'
                     )
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
                         to: "rameshkavinda95@gmail.com",
                         subject: "Security Scan Status - Success",
                         body: "The Security Scan stage has completed successfully!",
-                        attachmentsPattern: '**/security_scan.log'
+                        //attachmentsPattern: '**/security_scan.log'
                     )
                 }
                 failure {
@@ -69,7 +69,7 @@ pipeline {
                         to: "rameshkavinda95@gmail.com",
                         subject: "Security Scan Status - Failure",
                         body: "The Security Scan stage has failed!",
-                        attachmentsPattern: '**/security_scan.log'
+                        //attachmentsPattern: '**/security_scan.log'
                     )
                 }
             }
