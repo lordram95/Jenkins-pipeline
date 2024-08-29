@@ -8,6 +8,15 @@ pipeline {
     }
 
     stages {
+        stage('Wait for a moment') {
+            steps {
+                script {
+                    sleep(time: 30, unit: 'SECONDS') // Delays the pipeline by 30 seconds
+                }
+            }
+        }
+
+    stages {
         stage('Build') {
             steps {
                 echo "Fetch the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
